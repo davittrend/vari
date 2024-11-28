@@ -1,13 +1,14 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, setPersistence, browserLocalPersistence, connectAuthEmulator } from 'firebase/auth';
+import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth';
+import { config } from '../utils/config';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDsm9eLK60DgbIPTIXGWzvBRGbvBPUZsJg",
-  authDomain: "mighty-pinner.firebaseapp.com",
-  projectId: "mighty-pinner",
-  storageBucket: "mighty-pinner.firebasestorage.app",
-  messagingSenderId: "475747703677",
-  appId: "1:475747703677:web:7f0f9bf347a75eda1c0a14"
+  apiKey: config.firebase.apiKey,
+  authDomain: config.firebase.authDomain,
+  projectId: config.firebase.projectId,
+  storageBucket: config.firebase.storageBucket,
+  messagingSenderId: config.firebase.messagingSenderId,
+  appId: config.firebase.appId
 };
 
 // Initialize Firebase
@@ -21,10 +22,5 @@ setPersistence(auth, browserLocalPersistence)
   .catch((error) => {
     console.error('Error setting auth persistence:', error);
   });
-
-// Connect to auth emulator in development
-if (import.meta.env.DEV) {
-  connectAuthEmulator(auth, 'http://127.0.0.1:9099');
-}
 
 export { auth };
