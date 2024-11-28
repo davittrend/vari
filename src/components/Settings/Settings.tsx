@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Bell, Shield, Clock, RefreshCw } from 'lucide-react';
 import { RootState } from '../../store/store';
 import toast from 'react-hot-toast';
@@ -11,7 +11,23 @@ export const Settings: FC = () => {
     pinPublished: true,
     pinFailed: true,
   });
-  const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
+  const [timezone, setTimezone] = useState(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
+
+  // Available timezones
+  const timezones = [
+    'UTC',
+    'America/New_York',
+    'America/Chicago',
+    'America/Denver',
+    'America/Los_Angeles',
+    'Europe/London',
+    'Europe/Paris',
+    'Asia/Tokyo',
+    'Asia/Shanghai',
+    'Australia/Sydney'
+  ];
 
   const handleRefreshToken = async () => {
     try {
@@ -24,7 +40,6 @@ export const Settings: FC = () => {
       const data = await response.json();
 
       if (response.ok && data.token) {
-        // Update local storage with new token
         const updatedAuth = {
           ...userData,
           token: {
@@ -42,20 +57,6 @@ export const Settings: FC = () => {
       toast.error('Failed to refresh token. Please try logging in again.');
     }
   };
-
-  // Get available timezones
-  const timezones = [
-    'UTC',
-    'America/New_York',
-    'America/Chicago',
-    'America/Denver',
-    'America/Los_Angeles',
-    'Europe/London',
-    'Europe/Paris',
-    'Asia/Tokyo',
-    'Asia/Shanghai',
-    'Australia/Sydney'
-  ];
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
