@@ -8,7 +8,7 @@ interface PinData {
   scheduledTime: string;
 }
 
-export const validatePinData = (data: PinData) => {
+export const validatePinData = (data: PinData): string[] => {
   const errors: string[] = [];
 
   if (!data.title?.trim()) {
@@ -29,4 +29,4 @@ export const validatePinData = (data: PinData) => {
   }
 
   return errors;
-};
+}
